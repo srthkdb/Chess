@@ -17,6 +17,11 @@ function love.load()
     }
     love.graphics.setFont(gFonts['large'])
 
+    gSounds = {
+    	['move'] = love.audio.newSource('sounds/move.wav', 'static'),
+    	['game-over'] = love.audio.newSource('sounds/game_over.wav', 'static'),
+    }
+
     gTextures = {
         ['board'] = love.graphics.newImage('graphics/board.jpg'),
         ['blackBishop'] = love.graphics.newImage('graphics/blackBishop.png'),

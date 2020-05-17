@@ -49,6 +49,7 @@ function PlayState:update(dt)
                 if #attackers > 0 then
                     self.board:reverseMove(mo)
                 else
+                	gSounds['move']:play()
                     enpassant = nil
                     if mo.from.piece.pieceName == 'pawn' then
                         if math.abs(mo.to.x - mo.from.x) > 1 then
@@ -61,12 +62,14 @@ function PlayState:update(dt)
                     attackers = self:inCheck(self.whiteTurn, true, 0, 0)
                     if #attackers > 0 then
                         if self:checkMate(attackers) then
+                        	gSounds['game-over']:play()
                             gStateMachine:change('game-over', {state = 'checkmate', winner = not self.whiteTurn})
                         else
                             self.state = 'check'
                         end
                     else
                         if self:staleMate() then
+                        	gSounds['game-over']:play()
                             gStateMachine:change('game-over', {state = 'stalemate', winner = nil})
                         else
                             self.state = 'play'
